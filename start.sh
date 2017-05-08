@@ -11,7 +11,12 @@ echo "Starting varnish with options: $COMMAND"
 
 if [ -n "${ENABLE_LOGGING+1}" ] && [ "${ENABLE_LOGGING,,}" = "true" ] ; then
     echo "start logging with options $LOGGING_OPTS"
-	eval "varnishncsa ${LOGGING_OPTS}" &
+    LOG_COMMAND="varnishncsa ${LOGGING_OPTS}"
+    if [ -n "${LOG_FILTER+1}" ] ; then
+    	LOG_COMMAND="sleep 10 && $LOG_COMMAND | grep ${LOG_FILTER}"
+    fi
+    echo "Logging: $LOG_COMMAND"
+	eval "exec $LOG_COMMAND &"
 fi
 
 exec $COMMAND
