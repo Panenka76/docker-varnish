@@ -1,7 +1,7 @@
 FROM debian:jessie
 
 COPY varnish-cache.org.GPG /opt/varnish-cache.org.GPG
-ENV VARNISH_VERSION=4.1.3-1~jessie
+ENV VARNISH_VERSION=4.1.6-1~jessie
 
 RUN apt-key add /opt/varnish-cache.org.GPG
 RUN echo "deb http://repo.varnish-cache.org/debian/ jessie varnish-4.1"\
